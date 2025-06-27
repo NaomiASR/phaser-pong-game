@@ -11,6 +11,8 @@ export class Game extends Scene {
         this.leftPaddle = null;
         this.rightPaddle = null;
         this.ballInMotion = false;
+        this.wasd = null;
+        this.cursors = null;
     }
 
     preload() {
@@ -32,9 +34,25 @@ export class Game extends Scene {
         this.ball.setBounce(1,1);
 
         this.input.keyboard.on('keydown-SPACE',this.startBall,this);
+        this.cursors = this.input.keyboard.createCursorKeys();
+        this.wasd = this.input.keyboard.addKeys({
+            up: Phaser.Input.Keyboard.KeyCodes.W,
+            down: Phaser.Input.Keyboard.KeyCodes.S
+        });
     }
 
     update() {
+        if (this.wasd.up.isDown && this.leftPaddle.y > 0) {
+            this.leftPaddle.y -= 5;
+        } else if (this.wasd.down.isDown && this.leftPaddle.y < HEIGHT) {
+            this.leftPaddle.y += 5;
+        }
+
+        if (this.cursors.up.isDown && this.rightPaddle.y > 0) {
+            this.rightPaddle.y -= 5;
+        } else if (this.cursors.down.isDown && this.rightPaddle.y < HEIGHT) {
+            this.rightPaddle.y += 5;
+        }
     }
 
 
