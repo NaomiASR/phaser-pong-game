@@ -85,8 +85,15 @@ export class Game extends Scene {
         }
     }
 
-    hitPaddle() {
+    hitPaddle(ball,paddle) {
+        let VelocityFactor = 1.3;
+        let NewVelocityY = ball.body.velocity.y * VelocityFactor;
+        let NewVelocityX = ball.body.velocity.x * VelocityFactor;
 
+        let angleDeviationInDeg = Phaser.Math.Between(-30,30);
+        let angleDeviationInRad = Phaser.Math.DegToRad(angleDeviationInDeg);
+        let newVelocity = new Phaser.Math.Vector2(NewVelocityX,NewVelocityY).rotate(angleDeviationInRad);
+        ball.setVelocity(newVelocity.x,newVelocity.y);
     }
 
     resetBall() {
